@@ -13,7 +13,8 @@ namespace APICallExperiment
             // client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             // client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "your-token");
 
-            await MakeApiCallAsync("https://dog.ceo/api/breeds/image/random");
+            Dictionary<string, string> properties = await MakeApiCallAsync("https://dog.ceo/api/breeds/image/random");
+            Console.WriteLine(properties["message"]);
         }
 
         /// <summary>
