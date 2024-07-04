@@ -13,8 +13,8 @@ namespace APICallExperiment
             // client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             // client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "your-token");
 
-            Dictionary<string, string> properties = await MakeApiCallAsync("https://dog.ceo/api/breeds/image/random");
-            Console.WriteLine(properties["message"]);
+            Dictionary<string, dynamic> properties = await MakeApiCallAsync("https://localhost:7200/Customer");
+            Console.WriteLine($"{properties["id"]}\n{properties["name"]}\n{properties["age"]}\n{properties["phone"]}");
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace APICallExperiment
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="JsonException"></exception>
         /// <exception cref="NotSupportedException"></exception>
-        private static async Task<Dictionary<string, string>> MakeApiCallAsync(string apiEndpoint, HttpClient? client = null)
+        private static async Task<Dictionary<string, dynamic>> MakeApiCallAsync(string apiEndpoint, HttpClient? client = null)
         {
             client ??= new HttpClient();
 
@@ -40,7 +40,7 @@ namespace APICallExperiment
             {
                 string jsonContent = await responseMessage.Content.ReadAsStringAsync();
 
-                Dictionary<string, string>? content = JsonSerializer.Deserialize<Dictionary<string, string>>(jsonContent);
+                Dictionary<string, dynamic>? content = JsonSerializer.Deserialize<Dictionary<string, dynamic>>(jsonContent);
 
                 return content is null ? throw new Exception("Unable to parse content.") : content;
             }
